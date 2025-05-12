@@ -543,7 +543,7 @@ class SDTokenizer:
         if tokenizer_args is None:
             tokenizer_args = dict()
         if tokenizer_path is None:
-            tokenizer_path = files.get_package_as_path("hiddenswitch_comfy.switch_comfy.sd1_tokenizer")
+            tokenizer_path = files.get_package_as_path("hiddenswitch_comfy.sd1_tokenizer")
         if isinstance(tokenizer_path, Path):
             tokenizer_path = str(tokenizer_path)
         if isinstance(tokenizer_path, Traversable):
