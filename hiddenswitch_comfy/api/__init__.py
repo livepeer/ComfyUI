@@ -21,6 +21,6 @@ from hiddenswitch_comfy.api.configurations.api_configuration import ApiConfigura
 from hiddenswitch_comfy.api.exceptions import OpenApiException
 from hiddenswitch_comfy.api.exceptions import ApiAttributeError
 from hiddenswitch_comfy.api.exceptions import ApiTypeError
-from hiddenswitch_comfy.switch_comfy.api.exceptions import ApiValueError
+from hiddenswitch_comfy.api.exceptions import ApiValueError
 from hiddenswitch_comfy.api.exceptions import ApiKeyError
 from hiddenswitch_comfy.api.exceptions import ApiException
