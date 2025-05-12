@@ -2,7 +2,7 @@ import re
 
 import pytest
 
-from comfy_extras.nodes.nodes_regexp import RegexFlags, Regex, RegexMatchGroupByIndex, RegexMatchGroupByName, \
+from hiddenswitch_comfy_extras.nodes.nodes_regexp import RegexFlags, Regex, RegexMatchGroupByIndex, RegexMatchGroupByName, \
     RegexMatchExpand
 
 

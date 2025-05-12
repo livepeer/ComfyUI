@@ -5,8 +5,8 @@ import aiohttp
 import pytest
 from can_ada import URL, parse
 
-from comfy.client.aio_client import AsyncRemoteComfyClient
-from comfy.client.sdxl_with_refiner_workflow import sdxl_workflow_with_refiner
+from hiddenswitch_comfy.client.aio_client import AsyncRemoteComfyClient
+from hiddenswitch_comfy.client.sdxl_with_refiner_workflow import sdxl_workflow_with_refiner
 
 
 @pytest.mark.asyncio

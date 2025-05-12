@@ -3,7 +3,7 @@ import os
 import pytest
 import torch
 
-from comfy_extras.nodes.nodes_ideogram import (
+from hiddenswitch_comfy_extras.nodes.nodes_ideogram import (
     IdeogramGenerate,
     IdeogramEdit,
     IdeogramRemix

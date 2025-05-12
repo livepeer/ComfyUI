@@ -32,4 +32,4 @@ WORKDIR /workspace
 RUN comfyui --quick-test-for-ci --cpu --cwd /workspace
 
 EXPOSE 8188
-CMD ["python", "-m", "comfy.cmd.main", "--listen"]
+CMD ["python", "-m", "hiddenswitch_comfy.cmd.main", "--listen"]

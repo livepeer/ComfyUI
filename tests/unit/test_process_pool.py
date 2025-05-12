@@ -2,8 +2,8 @@ import contextvars
 
 import pytest
 
-from comfy.component_model import cvpickle
-from comfy.distributed.process_pool_executor import ProcessPoolExecutor
+from hiddenswitch_comfy.component_model import cvpickle
+from hiddenswitch_comfy.distributed.process_pool_executor import ProcessPoolExecutor
 
 # Example context variable
 my_var = contextvars.ContextVar('my_var', default=None)

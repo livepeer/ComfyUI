@@ -4,7 +4,7 @@ import shutil
 
 import pytest
 
-from comfy.cli_args import args
+from hiddenswitch_comfy.cli_args import args
 
 
 _gitattributes = """*.7z filter=lfs diff=lfs merge=lfs -text
@@ -50,11 +50,11 @@ async def test_known_repos(tmp_path_factory):
     prev_hub_cache = os.getenv("HF_HUB_CACHE")
     os.environ["HF_HUB_CACHE"] = str(tmp_path_factory.mktemp("huggingface_root_cache"))
 
-    from comfy.cmd import folder_paths
-    from comfy.component_model.folder_path_types import FolderPathsTuple
-    from comfy.model_downloader import get_huggingface_repo_list, \
+    from hiddenswitch_comfy.cmd import folder_paths
+    from hiddenswitch_comfy.component_model.folder_path_types import FolderPathsTuple
+    from hiddenswitch_comfy.model_downloader import get_huggingface_repo_list, \
         get_or_download_huggingface_repo, _get_cache_hits, _delete_repo_from_huggingface_cache
-    from comfy.model_downloader import KNOWN_HUGGINGFACE_MODEL_REPOS
+    from hiddenswitch_comfy.model_downloader import KNOWN_HUGGINGFACE_MODEL_REPOS
 
     test_cache_dir = tmp_path_factory.mktemp("huggingface_cache")
     test_local_dir = tmp_path_factory.mktemp("huggingface_locals")

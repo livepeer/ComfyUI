@@ -104,7 +104,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["comfy*"]
+include = ["hiddenswitch_comfy*"]
 namespaces = false
 
 [project.optional-dependencies]
@@ -156,8 +156,8 @@ withtriton = ["comfyui[cuda, triton]"] # Depends on 'cuda' and 'triton' extras
 
 
 [project.scripts]
-comfyui = "comfy.cmd.main:entrypoint"
-comfyui-worker = "comfy.cmd.worker:entrypoint"
+comfyui = "hiddenswitch_comfy.cmd.main:entrypoint"
+comfyui-worker = "hiddenswitch_comfy.cmd.worker:entrypoint"
 
 [project.urls]
 Homepage = "https://github.com/comfyanonymous/ComfyUI" # Example

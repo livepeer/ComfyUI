@@ -1,6 +1,6 @@
 from __future__ import annotations
 # noqa: E402
-from comfy.cmd.main_pre import args
+from hiddenswitch_comfy.cmd.main_pre import args
 import os
 import re
 import uuid
@@ -13,9 +13,9 @@ import torch
 from PIL import Image, ExifTags
 from freezegun import freeze_time
 
-from comfy.cmd import folder_paths
-from comfy.component_model.executor_types import ValidateInputsTuple
-from comfy_extras.nodes.nodes_open_api import SaveImagesResponse, IntRequestParameter, FloatRequestParameter, \
+from hiddenswitch_comfy.cmd import folder_paths
+from hiddenswitch_comfy.component_model.executor_types import ValidateInputsTuple
+from hiddenswitch_comfy_extras.nodes.nodes_open_api import SaveImagesResponse, IntRequestParameter, FloatRequestParameter, \
     StringRequestParameter, HashImage, StringPosixPathJoin, LegacyOutputURIs, DevNullUris, StringJoin, StringToUri, \
     UriFormat, ImageExifMerge, ImageExifCreationDateAndBatchNumber, ImageExif, ImageExifUncommon, \
     StringEnumRequestParameter, ExifContainer, BooleanRequestParameter, ImageRequestParameter
@@ -153,7 +153,7 @@ def test_string_enum_request_parameter():
             },
         },
     }
-    from comfy.cmd.execution import validate_inputs
+    from hiddenswitch_comfy.cmd.execution import validate_inputs
     validated: dict[str, ValidateInputsTuple] = {}
     validated["1"] = validate_inputs(prompt, "1", validated)
     validated["2"] = validate_inputs(prompt, "2", validated)
@@ -289,7 +289,7 @@ def test_file_request_parameter(use_temporary_input_directory):
     n = ImageRequestParameter()
     loaded_image, = n.execute(value=image_path)
     assert loaded_image.shape == (1, 1, 1, 3)
-    from comfy.nodes.base_nodes import LoadImage
+    from hiddenswitch_comfy.nodes.base_nodes import LoadImage
 
     load_image_node = LoadImage()
     load_image_node_rgb, _ = load_image_node.load_image(image=os.path.basename(image_path))

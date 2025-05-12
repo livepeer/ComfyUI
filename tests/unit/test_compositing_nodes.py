@@ -1,6 +1,6 @@
 import torch
 
-from comfy_extras.nodes.nodes_compositing import Posterize, EnhanceContrast
+from hiddenswitch_comfy_extras.nodes.nodes_compositing import Posterize, EnhanceContrast
 
 
 def test_posterize():

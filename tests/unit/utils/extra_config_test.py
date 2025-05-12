@@ -6,10 +6,10 @@ from unittest.mock import Mock, patch, mock_open
 import pytest
 import yaml
 
-from comfy.cmd import folder_paths
-from comfy.component_model.folder_path_types import FolderNames
-from comfy.execution_context import context_folder_names_and_paths
-from comfy.extra_config import load_extra_path_config
+from hiddenswitch_comfy.cmd import folder_paths
+from hiddenswitch_comfy.component_model.folder_path_types import FolderNames
+from hiddenswitch_comfy.execution_context import context_folder_names_and_paths
+from hiddenswitch_comfy.extra_config import load_extra_path_config
 
 
 @pytest.fixture()

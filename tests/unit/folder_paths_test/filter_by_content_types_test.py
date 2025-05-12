@@ -3,8 +3,8 @@ import tempfile
 
 import pytest
 
-from comfy.cmd.folder_paths import filter_files_content_types
-from comfy.component_model.folder_path_types import extension_mimetypes_cache
+from hiddenswitch_comfy.cmd.folder_paths import filter_files_content_types
+from hiddenswitch_comfy.component_model.folder_path_types import extension_mimetypes_cache
 from unittest.mock import patch
 
 @pytest.fixture(scope="module")

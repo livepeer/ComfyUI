@@ -1,4 +1,4 @@
-from comfy.json_util import merge_json_recursive
+from hiddenswitch_comfy.json_util import merge_json_recursive
 
 
 def test_merge_simple_dicts():

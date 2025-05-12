@@ -5,14 +5,14 @@ from unittest.mock import patch
 import pytest
 import torch
 
-from comfy.cli_args_types import Configuration
-from comfy.client.embedded_comfy_client import EmbeddedComfyClient
-from comfy.component_model.make_mutable import make_mutable
-from comfy.component_model.tensor_types import RGBImageBatch
-from comfy.distributed.executors import ContextVarExecutor
-from comfy.distributed.process_pool_executor import ProcessPoolExecutor
-from comfy.execution_context import context_add_custom_nodes
-from comfy.nodes.package_typing import CustomNode, ExportedNodes
+from hiddenswitch_comfy.cli_args_types import Configuration
+from hiddenswitch_comfy.client.embedded_comfy_client import EmbeddedComfyClient
+from hiddenswitch_comfy.component_model.make_mutable import make_mutable
+from hiddenswitch_comfy.component_model.tensor_types import RGBImageBatch
+from hiddenswitch_comfy.distributed.executors import ContextVarExecutor
+from hiddenswitch_comfy.distributed.process_pool_executor import ProcessPoolExecutor
+from hiddenswitch_comfy.execution_context import context_add_custom_nodes
+from hiddenswitch_comfy.nodes.package_typing import CustomNode, ExportedNodes
 
 
 @pytest.mark.asyncio

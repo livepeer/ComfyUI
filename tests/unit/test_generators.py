@@ -1,6 +1,6 @@
 import pytest
 
-from comfy_extras.nodes.nodes_generators import IntRange, FloatRange1, FloatRange2, FloatRange3, StringSplit
+from hiddenswitch_comfy_extras.nodes.nodes_generators import IntRange, FloatRange1, FloatRange2, FloatRange3, StringSplit
 
 
 def test_int_range():

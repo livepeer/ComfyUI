@@ -4,12 +4,12 @@ import pytest
 from requests.exceptions import HTTPError
 from unittest.mock import patch
 
-from comfy.app.frontend_management import (
+from hiddenswitch_comfy.app.frontend_management import (
     FrontendManager,
     FrontEndProvider,
     Release,
 )
-from comfy.cli_args import DEFAULT_VERSION_STRING
+from hiddenswitch_comfy.cli_args import DEFAULT_VERSION_STRING
 
 
 @pytest.fixture
@@ -88,16 +88,16 @@ def test_init_frontend_invalid_provider():
 
 @pytest.fixture
 def mock_os_functions():
-    with patch('comfy.app.frontend_management.os.makedirs') as mock_makedirs, \
-         patch('comfy.app.frontend_management.os.listdir') as mock_listdir, \
-         patch('comfy.app.frontend_management.os.rmdir') as mock_rmdir:
+    with patch('hiddenswitch_comfy.app.frontend_management.os.makedirs') as mock_makedirs, \
+         patch('hiddenswitch_comfy.app.frontend_management.os.listdir') as mock_listdir, \
+         patch('hiddenswitch_comfy.app.frontend_management.os.rmdir') as mock_rmdir:
         mock_listdir.return_value = []  # Simulate empty directory
         yield mock_makedirs, mock_listdir, mock_rmdir
 
 
 @pytest.fixture
 def mock_download():
-    with patch('comfy.app.frontend_management.download_release_asset_zip') as mock:
+    with patch('hiddenswitch_comfy.app.frontend_management.download_release_asset_zip') as mock:
         mock.side_effect = Exception("Download failed")  # Simulate download failure
         yield mock
 
@@ -140,7 +140,7 @@ def test_init_frontend_default_with_mocks():
 
     # Act
     with (
-        patch("comfy.app.frontend_management.check_frontend_version") as mock_check,
+        patch("hiddenswitch_comfy.app.frontend_management.check_frontend_version") as mock_check,
         patch.object(
             FrontendManager, "default_frontend_path", return_value="/mocked/path"
         ),
@@ -161,7 +161,7 @@ def test_init_frontend_fallback_on_error():
         patch.object(
             FrontendManager, "init_frontend_unsafe", side_effect=Exception("Test error")
         ),
-        patch("comfy.app.frontend_management.check_frontend_version") as mock_check,
+        patch("hiddenswitch_comfy.app.frontend_management.check_frontend_version") as mock_check,
         patch.object(
             FrontendManager, "default_frontend_path", return_value="/default/path"
         ),

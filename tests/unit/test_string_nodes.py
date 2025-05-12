@@ -1,6 +1,6 @@
 import torch
 
-from comfy_extras.nodes.nodes_strings import StringFormat
+from hiddenswitch_comfy_extras.nodes.nodes_strings import StringFormat
 
 
 def test_string_format_basic():

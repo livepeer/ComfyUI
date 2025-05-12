@@ -39,8 +39,8 @@ jobs:
     - name: Lint for errors
       run: |
         source venv/bin/activate
-        pylint -j 8 --rcfile=.pylintrc comfy/
-        pylint -j 8 --rcfile=.pylintrc comfy_extras/
+        pylint -j 8 --rcfile=.pylintrc hiddenswitch_comfy/
+        pylint -j 8 --rcfile=.pylintrc hiddenswitch_comfy_extras/
   build_and_execute_linux:
     environment: "Testing"
     name: Installation, Unit and Workflow Tests for Linux
@@ -81,5 +81,5 @@ jobs:
           pytest -v tests/unit
       - name: Lint for errors
         run: |
-          pylint --rcfile=.pylintrc comfy/
-          pylint --rcfile=.pylintrc comfy_extras/
+          pylint --rcfile=.pylintrc hiddenswitch_comfy/
+          pylint --rcfile=.pylintrc hiddenswitch_comfy_extras/

@@ -1,9 +1,9 @@
 import pytest
 
-from comfy import model_management
-from comfy.model_patcher import ModelPatcher
-from comfy.nodes.base_nodes import UNETLoader, CheckpointLoaderSimple
-from comfy_extras.nodes.nodes_torch_compile import QuantizeModel
+from hiddenswitch_comfy import model_management
+from hiddenswitch_comfy.model_patcher import ModelPatcher
+from hiddenswitch_comfy.nodes.base_nodes import UNETLoader, CheckpointLoaderSimple
+from hiddenswitch_comfy_extras.nodes.nodes_torch_compile import QuantizeModel
 
 has_torchao = True
 try:

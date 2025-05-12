@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from comfy_extras.nodes.nodes_svg import ImageToSVG, SVGToImage
+from hiddenswitch_comfy_extras.nodes.nodes_svg import ImageToSVG, SVGToImage
 
 
 @pytest.fixture
