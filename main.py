@@ -13,4 +13,4 @@ if __name__ == "__main__":
     fn.base_paths.clear()
     fn.base_paths.append(this_file_parent_dir)
 
-    asyncio.run(main(from_script_dir=this_file_parent_dir))
+    asyncio.run(_start_comfyui(from_script_dir=this_file_parent_dir))

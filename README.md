@@ -3,11 +3,10 @@ ComfyUI LTS
 
 A vanilla, up-to-date fork of [ComfyUI](https://github.com/comfyanonymous/comfyui) intended for long term support (LTS) from [AppMana](https://appmana.com) and [Hidden Switch](https://hiddenswitch.com).
 
-
 ### New Features
 
 - To run, just type `comfyui` in your command line and press enter.
-- [Installable](#installing) via `uv`: `uv pip install comfyui[cuda]@git+https://github.com/hiddenswitch/ComfyUI.git`.
+- [Installable](#installing) via `uv`: `UV_TORCH_BACKEND=auto uv pip install comfyui@git+https://github.com/hiddenswitch/ComfyUI.git`.
 - [Large Language Models](#large-language-models) with multi-modal support included.
 - [Automatic model downloading](#model-downloading) to save you disk space and time.
 - [Distributed](#distributed-multi-process-and-multi-gpu-comfy) with support for multiple GPUs, multiple backends and frontends, including in containers, using RabbitMQ.
@@ -25,42 +24,46 @@ ComfyUI lets you design and execute advanced stable diffusion pipelines using a 
 ## Get Started
 
 #### [Desktop Application](https://www.comfy.org/download)
-- The easiest way to get started. 
+
+- The easiest way to get started.
 - Available on Windows & macOS.
 
 #### [Windows Portable Package](#installing)
+
 - Get the latest commits and completely portable.
 - Available on Windows.
 
 #### [Manual Install](#manual-install-windows-linux)
+
 Supports all operating systems and GPU types (NVIDIA, AMD, Intel, Apple Silicon, Ascend).
 
 ## [Examples](https://comfyanonymous.github.io/ComfyUI_examples/)
+
 See what ComfyUI can do with the [example workflows](https://comfyanonymous.github.io/ComfyUI_examples/).
 
-
 ## Upstream Features
+
 - Nodes/graph/flowchart interface to experiment and create complex Stable Diffusion workflows without needing to code anything.
 - Image Models
-   - SD1.x, SD2.x,
-   - [SDXL](https://comfyanonymous.github.io/ComfyUI_examples/sdxl/), [SDXL Turbo](https://comfyanonymous.github.io/ComfyUI_examples/sdturbo/)
-   - [Stable Cascade](https://comfyanonymous.github.io/ComfyUI_examples/stable_cascade/)
-   - [SD3 and SD3.5](https://comfyanonymous.github.io/ComfyUI_examples/sd3/)
-   - Pixart Alpha and Sigma
-   - [AuraFlow](https://comfyanonymous.github.io/ComfyUI_examples/aura_flow/)
-   - [HunyuanDiT](https://comfyanonymous.github.io/ComfyUI_examples/hunyuan_dit/)
-   - [Flux](https://comfyanonymous.github.io/ComfyUI_examples/flux/)
-   - [Lumina Image 2.0](https://comfyanonymous.github.io/ComfyUI_examples/lumina2/)
-   - [HiDream](https://comfyanonymous.github.io/ComfyUI_examples/hidream/)
+    - SD1.x, SD2.x,
+    - [SDXL](https://comfyanonymous.github.io/ComfyUI_examples/sdxl/), [SDXL Turbo](https://comfyanonymous.github.io/ComfyUI_examples/sdturbo/)
+    - [Stable Cascade](https://comfyanonymous.github.io/ComfyUI_examples/stable_cascade/)
+    - [SD3 and SD3.5](https://comfyanonymous.github.io/ComfyUI_examples/sd3/)
+    - Pixart Alpha and Sigma
+    - [AuraFlow](https://comfyanonymous.github.io/ComfyUI_examples/aura_flow/)
+    - [HunyuanDiT](https://comfyanonymous.github.io/ComfyUI_examples/hunyuan_dit/)
+    - [Flux](https://comfyanonymous.github.io/ComfyUI_examples/flux/)
+    - [Lumina Image 2.0](https://comfyanonymous.github.io/ComfyUI_examples/lumina2/)
+    - [HiDream](https://comfyanonymous.github.io/ComfyUI_examples/hidream/)
 - Video Models
-   - [Stable Video Diffusion](https://comfyanonymous.github.io/ComfyUI_examples/video/)
-   - [Mochi](https://comfyanonymous.github.io/ComfyUI_examples/mochi/)
-   - [LTX-Video](https://comfyanonymous.github.io/ComfyUI_examples/ltxv/)
-   - [Hunyuan Video](https://comfyanonymous.github.io/ComfyUI_examples/hunyuan_video/)
-   - [Nvidia Cosmos](https://comfyanonymous.github.io/ComfyUI_examples/cosmos/)
-   - [Wan 2.1](https://comfyanonymous.github.io/ComfyUI_examples/wan/)
+    - [Stable Video Diffusion](https://comfyanonymous.github.io/ComfyUI_examples/video/)
+    - [Mochi](https://comfyanonymous.github.io/ComfyUI_examples/mochi/)
+    - [LTX-Video](https://comfyanonymous.github.io/ComfyUI_examples/ltxv/)
+    - [Hunyuan Video](https://comfyanonymous.github.io/ComfyUI_examples/hunyuan_video/)
+    - [Nvidia Cosmos](https://comfyanonymous.github.io/ComfyUI_examples/cosmos/)
+    - [Wan 2.1](https://comfyanonymous.github.io/ComfyUI_examples/wan/)
 - 3D Models
-   - [Hunyuan3D 2.0](https://docs.comfy.org/tutorials/3d/hunyuan3D-2)
+    - [Hunyuan3D 2.0](https://docs.comfy.org/tutorials/3d/hunyuan3D-2)
 - [Stable Audio](https://comfyanonymous.github.io/ComfyUI_examples/audio/)
 - Asynchronous Queue system
 - Many optimizations: Only re-executes the parts of the workflow that changes between executions.
@@ -128,46 +131,36 @@ When using Windows, open the **Windows Powershell** app. Then observe you are at
 
 4. Create a virtual environment:
    ```shell
-   uv venv --seed --python 3.12
+   uv venv
    ```
-5. Activate it on
-   **Windows (PowerShell):**
-
+5. Run the following command to install `comfyui` into your current environment. This will correctly select the version of `torch` that matches the GPU on your machine (NVIDIA or CPU on Windows, NVIDIA, Intel, AMD or CPU on Linux, CPU on macOS):
    ```powershell
-   Set-ExecutionPolicy Unrestricted -Scope Process
-   & .\.venv\Scripts\activate.ps1
+   uv pip install --torch-backend=auto "comfyui@git+https://github.com/hiddenswitch/ComfyUI.git"
    ```
-
-6. Run the following command to install `comfyui` into your current environment. This will correctly select the version of `torch` that matches the GPU on your machine (NVIDIA or CPU on Windows, NVIDIA, Intel, AMD or CPU on Linux, CPU on macOS):
-   ```powershell
-   uv pip install setuptools wheel
-   UV_TORCH_BACKEND=auto uv pip install "comfyui[cuda]@git+https://github.com/hiddenswitch/ComfyUI.git"
-   ```
-7. To run the web server:
+6. To run the web server:
    ```shell
-   comfyui
+   uv run comfyui
    ```
    When you run workflows that use well-known models, this will download them automatically.
 
    To make it accessible over the network:
    ```shell
-   comfyui --listen
+   uv run comfyui --listen
    ```
 
 **Running**
 
-On Windows, you will need to open PowerShell and activate your virtual environment whenever you want to run `comfyui`.
+On Windows, you should change into the directory where you ran `uv venv`, then run `comfyui`. For example, if you ran `uv venv` inside `~\Documents\ComfyUI_Workspace\`
 
 ```powershell
 cd ~\Documents\ComfyUI_Workspace\
-& .venv\Scripts\activate.ps1
-comfyui
+uv run comfyui
 ```
 
 Upgrades are delivered frequently and automatically. To force one immediately, run pip upgrade like so:
 
 ```shell
-UV_TORCH_BACKEND=auto uv pip install --no-build-isolation --upgrade "comfyui@git+https://github.com/hiddenswitch/ComfyUI.git"
+uv pip install --torch-backend=auto --upgrade "comfyui@git+https://github.com/hiddenswitch/ComfyUI.git"
 ```
 
 ### macOS
@@ -176,9 +169,9 @@ UV_TORCH_BACKEND=auto uv pip install --no-build-isolation --upgrade "comfyui@git
    ```shell
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
-   Then, install `python` and `uv`:
+   Then, install `uv`:
    ```shell
-   HOMEBREW_NO_AUTO_UPDATE=1 brew install python@3.12 uv
+   HOMEBREW_NO_AUTO_UPDATE=1 brew install uv
    ```
 3. Switch into a directory that you want to store your outputs, custom nodes and models in. This is your ComfyUI workspace. For example, if you want to store your workspace in a directory called `ComfyUI_Workspace` in your Documents folder:
 
@@ -189,39 +182,31 @@ UV_TORCH_BACKEND=auto uv pip install --no-build-isolation --upgrade "comfyui@git
 
 4. Create a virtual environment:
    ```shell
-   uv venv --seed --python 3.12
-   ```
-5. Activate it on
-   **macOS**
-
-   ```shell
-   source .venv/bin/activate
+   uv venv --python 3.12
    ```
 
-6. Run the following command to install `comfyui` into your current environment. This will correctly select the version of `torch` that matches the GPU on your machine (NVIDIA or CPU on Windows, NVIDIA, Intel, AMD or CPU on Linux, CPU on macOS):
+5. Run the following command to install `comfyui` into your current environment.
    ```shell
-   uv pip install setuptools wheel
-   UV_TORCH_BACKEND=auto uv pip install "comfyui[cpu]@git+https://github.com/hiddenswitch/ComfyUI.git"
+   uv pip install "comfyui@git+https://github.com/hiddenswitch/ComfyUI.git"
    ```
-7. To run the web server:
+6. To run the web server:
    ```shell
-   comfyui
+   uv run comfyui
    ```
    When you run workflows that use well-known models, this will download them automatically.
 
    To make it accessible over the network:
    ```shell
-   comfyui --listen
+   uv run comfyui --listen
    ```
 
 **Running**
 
-On macOS, you will need to open the terminal and activate your virtual environment whenever you want to run `comfyui`.
+On macOS, you will need to open the terminal and `cd` into the directory in which you ran `uv venv`. For example, if you ran `uv venv` in `~/Documents/ComfyUI_Workspace/`:
 
 ```shell
 cd ~/Documents/ComfyUI_Workspace/
-source .venv/bin/activate
-comfyui
+uv run comfyui
 ```
 
 ## Model Downloading
@@ -259,16 +244,16 @@ To save space, you will need to enable Developer Mode in the Windows Settings, t
 
 These packages have been adapted to be installable with `pip` and download models to the correct places:
 
-- **ELLA T5 Text Conditioning for SD1.5**: `pip install git+https://github.com/AppMana/appmana-comfyui-nodes-ella.git`
-- **IP Adapter**: `pip install git+https://github.com/AppMana/appmana-comfyui-nodes-ipadapter-plus`
-- **ControlNet Auxiliary Preprocessors**: `pip install git+https://github.com/AppMana/appmana-comfyui-nodes-controlnet-aux.git`.
-- **LayerDiffuse Alpha Channel Diffusion**: `pip install git+https://github.com/AppMana/appmana-comfyui-nodes-layerdiffuse.git`.
-- **BRIA Background Removal**: `pip install git+https://github.com/AppMana/appmana-comfyui-nodes-bria-bg-removal.git`
-- **Video Frame Interpolation**: `pip install git+https://github.com/AppMana/appmana-comfyui-nodes-video-frame-interpolation`
-- **Video Helper Suite**: `pip install git+https://github.com/AppMana/appmana-comfyui-nodes-video-helper-suite`
-- **AnimateDiff Evolved**: `pip install git+https://github.com/AppMana/appmana-comfyui-nodes-animatediff-evolved`
-- **Impact Pack**: `pip install git+https://github.com/AppMana/appmana-comfyui-nodes-impact-pack`
-- **TensorRT**: `pip install git+https://github.com/AppMAna/appmana-comfyui-nodes-tensorrt`
+- **ELLA T5 Text Conditioning for SD1.5**: `uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-ella.git`
+- **IP Adapter**: `uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-ipadapter-plus`
+- **ControlNet Auxiliary Preprocessors**: `uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-controlnet-aux.git`.
+- **LayerDiffuse Alpha Channel Diffusion**: `uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-layerdiffuse.git`.
+- **BRIA Background Removal**: `uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-bria-bg-removal.git`
+- **Video Frame Interpolation**: `uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-video-frame-interpolation`
+- **Video Helper Suite**: `uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-video-helper-suite`
+- **AnimateDiff Evolved**: `uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-animatediff-evolved`
+- **Impact Pack**: `uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-impact-pack`
+- **TensorRT**: `uv pip install git+https://github.com/AppMAna/appmana-comfyui-nodes-tensorrt`
 
 Custom nodes are generally supported by this fork. Use these for a bug-free experience.
 
@@ -284,20 +269,25 @@ caddy reverse-proxy --from localhost:443 --to localhost:8188 --tls self_signed
 
 ##### Notes for AMD Users
 
-Until a workaround is found, specify these variables:
+Installation for `ROCm` should be explicit:
+```shell
+uv pip install "comfyui[rocm]@git+https://github.com/hiddenswitch/ComfyUI.git"
+```
+
+Then, until a workaround is found, specify these variables:
 
 RDNA 3 (RX 7600 and later)
 
 ```shell
 export HSA_OVERRIDE_GFX_VERSION=11.0.0
-comfyui
+uv run comfyui
 ```
 
 RDNA 2 (RX 6600 and others)
 
 ```shell
 export HSA_OVERRIDE_GFX_VERSION=10.3.0
-comfyui
+uv run comfyui
 ```
 
 You can enable experimental memory efficient attention on pytorch 2.5 in ComfyUI on RDNA3 and potentially other AMD GPUs using this command:
@@ -326,58 +316,6 @@ For models compatible with Cambricon Extension for PyTorch (`torch_mlu`). Here's
 1. Install the Cambricon CNToolkit by adhering to the platform-specific instructions on the [Installation](https://www.cambricon.com/docs/sdk_1.15.0/cntoolkit_3.7.2/cntoolkit_install_3.7.2/index.html)
 2. Next, install the PyTorch (`torch_mlu`) extension following the instructions on the [Installation](https://www.cambricon.com/docs/sdk_1.15.0/cambricon_pytorch_1.17.0/user_guide_1.9/index.html)
 3. Launch ComfyUI by running `python main.py`
-
-
-## Manual Install (Windows, Linux, macOS) For Development
-
-1. Clone this repo:
-   ```shell
-   git clone https://github.com/hiddenswitch/ComfyUI.git
-   cd ComfyUI
-   ```
-2. Create a virtual environment:
-    1. Create an environment:
-       ```shell
-       python -m virtualenv venv
-       ```
-    2. Activate it:
-
-       **Windows (PowerShell):**
-       ```pwsh
-       Set-ExecutionPolicy Unrestricted -Scope Process
-       & .\venv\Scripts\activate.ps1
-       ```
-
-       **Linux and macOS**
-       ```shell
-       source ./venv/bin/activate
-       ```
-
-3. Then, run the following command to install `comfyui` into your current environment. This will correctly select the version of pytorch that matches the GPU on your machine (NVIDIA or CPU on Windows, NVIDIA AMD or CPU on Linux):
-   ```shell
-   pip install -e ".[dev]"
-   ```
-4. To run the web server:
-    ```shell
-    comfyui
-    ```
-   To run tests:
-    ```shell
-    pytest -v tests/
-    ```
-   You can use `comfyui` as an API. Visit the [OpenAPI specification](comfy/api/openapi.yaml). This file can be used to generate typed clients for your preferred language.
-5. To create the standalone binary:
-    ```shell
-    python -m PyInstaller --onefile --noupx -n ComfyUI --add-data="comfy/;comfy/" --paths $(pwd) --paths comfy/cmd main.py
-    ```
-
-Because pip installs the package as editable with `pip install -e .`, any changes you make to the repository will affect the next launch of `comfy`. In IDEA based editors like PyCharm and IntelliJ, the Relodium plugin supports modifying your custom nodes or similar code while the server is running.
-
-## Linux Development Dependencies
-
-```shell
-apt install -y git build-essential clang python3-dev python3-venv
-```
 
 # Large Language Models
 
@@ -418,10 +356,10 @@ First, install this package using the [Installation Instructions](#installing).
 Then, install the custom nodes packages that support video creation workflows:
 
 ```shell
-pip install git+https://github.com/AppMana/appmana-comfyui-nodes-video-frame-interpolation
-pip install git+https://github.com/AppMana/appmana-comfyui-nodes-video-helper-suite
-pip install git+https://github.com/AppMana/appmana-comfyui-nodes-animatediff-evolved
-pip install git+https://github.com/AppMana/appmana-comfyui-nodes-controlnet-aux.git
+uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-video-frame-interpolation
+uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-video-helper-suite
+uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-animatediff-evolved
+uv pip install git+https://github.com/AppMana/appmana-comfyui-nodes-controlnet-aux.git
 ```
 
 Start creating an AnimateDiff workflow. When using these packages, the appropriate models will download automatically.
@@ -434,13 +372,9 @@ Improve the performance of your Mochi model video generation using **Sage Attent
 |--------|---------------|---------------|--------------------------|
 | A5000  | 7.52s/it      | 5.81s/it      | 5.00s/it (but corrupted) |
 
-[Use the default Mochi Workflow.](https://github.com/comfyanonymous/ComfyUI_examples/raw/refs/heads/master/mochi/mochi_text_to_video_example.webp) This does not require any custom nodes or any change to your workflow. 
+[Use the default Mochi Workflow.](https://github.com/comfyanonymous/ComfyUI_examples/raw/refs/heads/master/mochi/mochi_text_to_video_example.webp) This does not require any custom nodes or any change to your workflow.
 
-Install the dependencies for Windows or Linux using the `withtriton` component, or install the specific dependencies you need from [requirements-triton.txt](./requirements-triton.txt):
-
-```shell
-pip install "comfyui[withtriton]@git+https://github.com/hiddenswitch/ComfyUI.git"
-```
+**Installation**
 
 On Windows, you will need the CUDA Toolkit and Visual Studio 2022. If you do not already have this, use `chocolatey`:
 
@@ -455,16 +389,16 @@ choco install -y vcredist2010 vcredist2013 vcredist140
 
 Then, visit [NVIDIA.com's CUDA Toolkit Download Page](https://developer.nvidia.com/cuda-12-6-0-download-archive?target_os=Windows&target_arch=x86_64&target_version=Server2022&target_type=exe_network) and download and install the CUDA Toolkit. Verify it is correctly installed by running `nvcc --version`.
 
-You are now ready to install Sage Attention 2:
+You are now ready to install Sage Attention 2 and Triton:
 
 ```shell
-uv pip install --no-build-isolation --no-deps "git+https://github.com/thu-ml/SageAttention.git"
+uv pip install --torch-backend=auto "comfyui[attention]@git+https://github.com/hiddenswitch/ComfyUI.git"
 ```
 
 To start ComfyUI with it:
 
 ```shell
-comfyui --use-sage-attention
+uv run comfyui --use-sage-attention
 ```
 
 ![with_sage_attention.webp](./docs/assets/with_sage_attention.webp)
@@ -491,6 +425,7 @@ To use the Cosmos upsampler, install the prerequisites:
 uv pip install loguru pynvml
 uv pip install --no-deps git+https://github.com/NVIDIA/Cosmos.git
 ```
+
 Then, use the workflow embedded in the upsampled prompt by dragging and dropping the upsampled animation into your workspace.
 
 The Cosmos upsampler ought to improve any text-to-image video generation pipeline. Use the `Video2World` upsampler nodes to download Pixtral-12b and upsample for an image to video workflow using NVIDIA's default prompt. Since Pixtral is not fine tuned, the improvement may not be significant over using another LLM.
@@ -539,6 +474,7 @@ some_directory/some_code.py
 Then, if your `NODE_CLASS_MAPPINGS` are declared in `__init__.py`, use the following as a `pyproject.toml`, substituting your actual project name:
 
 **pyproject.toml**
+
 ```toml
 [project]
 name = "my_comfyui_nodes"
@@ -832,38 +768,38 @@ The default installation includes a fast latent preview method that's low-resolu
 
 ## Keyboard Shortcuts
 
-| Keybind                            | Explanation                                                                                                        |
-|------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| `Ctrl` + `Enter`                      | Queue up current graph for generation                                                                              |
-| `Ctrl` + `Shift` + `Enter`              | Queue up current graph as first for generation                                                                     |
-| `Ctrl` + `Alt` + `Enter`                | Cancel current generation                                                                                          |
-| `Ctrl` + `Z`/`Ctrl` + `Y`                 | Undo/Redo                                                                                                          |
-| `Ctrl` + `S`                          | Save workflow                                                                                                      |
-| `Ctrl` + `O`                          | Load workflow                                                                                                      |
-| `Ctrl` + `A`                          | Select all nodes                                                                                                   |
-| `Alt `+ `C`                           | Collapse/uncollapse selected nodes                                                                                 |
-| `Ctrl` + `M`                          | Mute/unmute selected nodes                                                                                         |
+| Keybind                                | Explanation                                                                                                        |
+|----------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| `Ctrl` + `Enter`                       | Queue up current graph for generation                                                                              |
+| `Ctrl` + `Shift` + `Enter`             | Queue up current graph as first for generation                                                                     |
+| `Ctrl` + `Alt` + `Enter`               | Cancel current generation                                                                                          |
+| `Ctrl` + `Z`/`Ctrl` + `Y`              | Undo/Redo                                                                                                          |
+| `Ctrl` + `S`                           | Save workflow                                                                                                      |
+| `Ctrl` + `O`                           | Load workflow                                                                                                      |
+| `Ctrl` + `A`                           | Select all nodes                                                                                                   |
+| `Alt `+ `C`                            | Collapse/uncollapse selected nodes                                                                                 |
+| `Ctrl` + `M`                           | Mute/unmute selected nodes                                                                                         |
 | `Ctrl` + `B`                           | Bypass selected nodes (acts like the node was removed from the graph and the wires reconnected through)            |
 | `Delete`/`Backspace`                   | Delete selected nodes                                                                                              |
 | `Ctrl` + `Backspace`                   | Delete the current graph                                                                                           |
-| `Space`                              | Move the canvas around when held and moving the cursor                                                             |
-| `Ctrl`/`Shift` + `Click`                 | Add clicked node to selection                                                                                      |
-| `Ctrl` + `C`/`Ctrl` + `V`                  | Copy and paste selected nodes (without maintaining connections to outputs of unselected nodes)                     |
-| `Ctrl` + `C`/`Ctrl` + `Shift` + `V`          | Copy and paste selected nodes (maintaining connections from outputs of unselected nodes to inputs of pasted nodes) |
+| `Space`                                | Move the canvas around when held and moving the cursor                                                             |
+| `Ctrl`/`Shift` + `Click`               | Add clicked node to selection                                                                                      |
+| `Ctrl` + `C`/`Ctrl` + `V`              | Copy and paste selected nodes (without maintaining connections to outputs of unselected nodes)                     |
+| `Ctrl` + `C`/`Ctrl` + `Shift` + `V`    | Copy and paste selected nodes (maintaining connections from outputs of unselected nodes to inputs of pasted nodes) |
 | `Shift` + `Drag`                       | Move multiple selected nodes at the same time                                                                      |
 | `Ctrl` + `D`                           | Load default graph                                                                                                 |
-| `Alt` + `+`                          | Canvas Zoom in                                                                                                     |
-| `Alt` + `-`                          | Canvas Zoom out                                                                                                    |
+| `Alt` + `+`                            | Canvas Zoom in                                                                                                     |
+| `Alt` + `-`                            | Canvas Zoom out                                                                                                    |
 | `Ctrl` + `Shift` + LMB + Vertical drag | Canvas Zoom in/out                                                                                                 |
-| `P`                                  | Pin/Unpin selected nodes                                                                                           |
+| `P`                                    | Pin/Unpin selected nodes                                                                                           |
 | `Ctrl` + `G`                           | Group selected nodes                                                                                               |
-| `Q`                                 | Toggle visibility of the queue                                                                                     |
-| `H`                                  | Toggle visibility of history                                                                                       |
-| `R`                                  | Refresh graph                                                                                                      |
-| `F`                                  | Show/Hide menu                                                                                                      |
-| `.`                                  | Fit view to selection (Whole graph when nothing is selected)                                                        |
-| Double-Click LMB                   | Open node quick search palette                                                                                     |
-| `Shift` + Drag                       | Move multiple wires at once                                                                                        |
+| `Q`                                    | Toggle visibility of the queue                                                                                     |
+| `H`                                    | Toggle visibility of history                                                                                       |
+| `R`                                    | Refresh graph                                                                                                      |
+| `F`                                    | Show/Hide menu                                                                                                     |
+| `.`                                    | Fit view to selection (Whole graph when nothing is selected)                                                       |
+| Double-Click LMB                       | Open node quick search palette                                                                                     |
+| `Shift` + Drag                         | Move multiple wires at once                                                                                        |
 | `Ctrl` + `Alt` + LMB                   | Disconnect all wires from clicked slot                                                                             |
 
 `Ctrl` can also be replaced with `Cmd` instead for macOS users
@@ -887,31 +823,26 @@ You can pass additional extra model path configurations with one or more copies 
 ### Command Line Arguments
 
 ```
-usage: comfyui.exe [-h] [-c CONFIG_FILE] [--write-out-config-file CONFIG_OUTPUT_PATH] [-w CWD] [--base-paths BASE_PATHS [BASE_PATHS ...]] [-H [IP]] [--port PORT]
-                   [--enable-cors-header [ORIGIN]] [--max-upload-size MAX_UPLOAD_SIZE] [--extra-model-paths-config PATH [PATH ...]]
-                   [--output-directory OUTPUT_DIRECTORY] [--temp-directory TEMP_DIRECTORY] [--input-directory INPUT_DIRECTORY] [--auto-launch] [--disable-auto-launch]
-                   [--cuda-device DEVICE_ID] [--cuda-malloc | --disable-cuda-malloc] [--force-fp32 | --force-fp16 | --force-bf16]
-                   [--bf16-unet | --fp16-unet | --fp8_e4m3fn-unet | --fp8_e5m2-unet] [--fp16-vae | --fp32-vae | --bf16-vae] [--cpu-vae]
-                   [--fp8_e4m3fn-text-enc | --fp8_e5m2-text-enc | --fp16-text-enc | --fp32-text-enc] [--directml [DIRECTML_DEVICE]] [--disable-ipex-optimize]
-                   [--preview-method [none,auto,latent2rgb,taesd]] [--preview-size PREVIEW_SIZE] [--cache-lru CACHE_LRU]
-                   [--use-split-cross-attention | --use-quad-cross-attention | --use-pytorch-cross-attention] [--disable-xformers] [--disable-flash-attn]
-                   [--disable-sage-attention] [--force-upcast-attention | --dont-upcast-attention]
-                   [--gpu-only | --highvram | --normalvram | --lowvram | --novram | --cpu] [--reserve-vram RESERVE_VRAM]
-                   [--default-hashing-function {md5,sha1,sha256,sha512}] [--disable-smart-memory] [--deterministic] [--fast] [--dont-print-server]
-                   [--quick-test-for-ci] [--windows-standalone-build] [--disable-metadata] [--disable-all-custom-nodes] [--multi-user] [--create-directories]
-                   [--plausible-analytics-base-url PLAUSIBLE_ANALYTICS_BASE_URL] [--plausible-analytics-domain PLAUSIBLE_ANALYTICS_DOMAIN]
-                   [--analytics-use-identity-provider] [--distributed-queue-connection-uri DISTRIBUTED_QUEUE_CONNECTION_URI] [--distributed-queue-worker]
-                   [--distributed-queue-frontend] [--distributed-queue-name DISTRIBUTED_QUEUE_NAME] [--external-address EXTERNAL_ADDRESS]
-                   [--logging-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}] [--disable-known-models] [--max-queue-size MAX_QUEUE_SIZE]
-                   [--otel-service-name OTEL_SERVICE_NAME] [--otel-service-version OTEL_SERVICE_VERSION] [--otel-exporter-otlp-endpoint OTEL_EXPORTER_OTLP_ENDPOINT]
-                   [--force-channels-last] [--force-hf-local-dir-mode] [--front-end-version FRONT_END_VERSION] [--front-end-root FRONT_END_ROOT]
-                   [--executor-factory EXECUTOR_FACTORY] [--openai-api-key OPENAI_API_KEY] [--user-directory USER_DIRECTORY] [--blip-model-url BLIP_MODEL_URL]
-                   [--blip-model-vqa-url BLIP_MODEL_VQA_URL] [--sam-model-vith-url SAM_MODEL_VITH_URL] [--sam-model-vitl-url SAM_MODEL_VITL_URL]
-                   [--sam-model-vitb-url SAM_MODEL_VITB_URL] [--history-display-limit HISTORY_DISPLAY_LIMIT] [--ffmpeg-bin-path FFMPEG_BIN_PATH]
-                   [--ffmpeg-extra-codecs FFMPEG_EXTRA_CODECS] [--wildcards-path WILDCARDS_PATH] [--wildcard-api WILDCARD_API] [--photoprism-host PHOTOPRISM_HOST]
-                   [--immich-host IMMICH_HOST] [--ideogram-session-cookie IDEOGRAM_SESSION_COOKIE] [--annotator-ckpts-path ANNOTATOR_CKPTS_PATH] [--use-symlinks]
-                   [--ort-providers ORT_PROVIDERS] [--vfi-ops-backend VFI_OPS_BACKEND] [--dependency-version DEPENDENCY_VERSION] [--mmdet-skip] [--sam-editor-cpu]
-                   [--sam-editor-model SAM_EDITOR_MODEL] [--custom-wildcards CUSTOM_WILDCARDS] [--disable-gpu-opencv]
+usage: comfyui [-h] [-c CONFIG_FILE] [--write-out-config-file CONFIG_OUTPUT_PATH] [-w CWD] [--base-paths BASE_PATHS [BASE_PATHS ...]] [-H [IP]] [--port PORT]
+               [--enable-cors-header [ORIGIN]] [--max-upload-size MAX_UPLOAD_SIZE] [--base-directory BASE_DIRECTORY] [--extra-model-paths-config PATH [PATH ...]]
+               [--output-directory OUTPUT_DIRECTORY] [--temp-directory TEMP_DIRECTORY] [--input-directory INPUT_DIRECTORY] [--auto-launch] [--disable-auto-launch]
+               [--cuda-device DEVICE_ID] [--cuda-malloc | --disable-cuda-malloc] [--force-fp32 | --force-fp16 | --force-bf16]
+               [--fp32-unet | --fp64-unet | --bf16-unet | --fp16-unet | --fp8_e4m3fn-unet | --fp8_e5m2-unet] [--fp16-vae | --fp32-vae | --bf16-vae] [--cpu-vae]
+               [--fp8_e4m3fn-text-enc | --fp8_e5m2-text-enc | --fp16-text-enc | --fp32-text-enc | --bf16-text-enc] [--directml [DIRECTML_DEVICE]]
+               [--oneapi-device-selector SELECTOR_STRING] [--disable-ipex-optimize] [--preview-method [none,auto,latent2rgb,taesd]] [--preview-size PREVIEW_SIZE]
+               [--cache-classic | --cache-lru CACHE_LRU | --cache-none]
+               [--use-split-cross-attention | --use-quad-cross-attention | --use-pytorch-cross-attention | --use-sage-attention | --use-flash-attention] [--disable-xformers]
+               [--force-upcast-attention | --dont-upcast-attention] [--gpu-only | --highvram | --normalvram | --lowvram | --novram | --cpu] [--reserve-vram RESERVE_VRAM]
+               [--default-hashing-function {md5,sha1,sha256,sha512}] [--disable-smart-memory] [--deterministic] [--fast [FAST ...]] [--dont-print-server] [--quick-test-for-ci]
+               [--windows-standalone-build] [--disable-metadata] [--disable-all-custom-nodes] [--multi-user] [--create-directories] [--log-stdout]
+               [--plausible-analytics-base-url PLAUSIBLE_ANALYTICS_BASE_URL] [--plausible-analytics-domain PLAUSIBLE_ANALYTICS_DOMAIN] [--analytics-use-identity-provider]
+               [--distributed-queue-connection-uri DISTRIBUTED_QUEUE_CONNECTION_URI] [--distributed-queue-worker] [--distributed-queue-frontend]
+               [--distributed-queue-name DISTRIBUTED_QUEUE_NAME] [--external-address EXTERNAL_ADDRESS] [--logging-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}]
+               [--disable-known-models] [--max-queue-size MAX_QUEUE_SIZE] [--otel-service-name OTEL_SERVICE_NAME] [--otel-service-version OTEL_SERVICE_VERSION]
+               [--otel-exporter-otlp-endpoint OTEL_EXPORTER_OTLP_ENDPOINT] [--force-channels-last] [--force-hf-local-dir-mode] [--front-end-version FRONT_END_VERSION]
+               [--panic-when PANIC_WHEN] [--front-end-root FRONT_END_ROOT] [--executor-factory EXECUTOR_FACTORY] [--openai-api-key OPENAI_API_KEY]
+               [--ideogram-api-key IDEOGRAM_API_KEY] [--anthropic-api-key ANTHROPIC_API_KEY] [--user-directory USER_DIRECTORY] [--enable-compress-response-body]
+               [--workflows WORKFLOWS [WORKFLOWS ...]]
 
 options:
   -h, --help            show this help message and exit
@@ -919,27 +850,28 @@ options:
                         config file path
   --write-out-config-file CONFIG_OUTPUT_PATH
                         takes the current command line args and writes them out to a config file at the given path, then exits
-  -w CWD, --cwd CWD     Specify the working directory. If not set, this is the current working directory. models/, input/, output/ and other directories will be
-                        located here by default. [env var: COMFYUI_CWD]
+  -w CWD, --cwd CWD     Specify the working directory. If not set, this is the current working directory. models/, input/, output/ and other directories will be located here by
+                        default. [env var: COMFYUI_CWD]
   --base-paths BASE_PATHS [BASE_PATHS ...]
                         Additional base paths for custom nodes, models and inputs. [env var: COMFYUI_BASE_PATHS]
   -H [IP], --listen [IP]
-                        Specify the IP address to listen on (default: 127.0.0.1). You can give a list of ip addresses by separating them with a comma like:
-                        127.2.2.2,127.3.3.3 If --listen is provided without an argument, it defaults to 0.0.0.0,:: (listens on all ipv4 and ipv6) [env var:
-                        COMFYUI_LISTEN]
+                        Specify the IP address to listen on (default: 127.0.0.1). You can give a list of ip addresses by separating them with a comma like: 127.2.2.2,127.3.3.3
+                        If --listen is provided without an argument, it defaults to 0.0.0.0,:: (listens on all ipv4 and ipv6) [env var: COMFYUI_LISTEN]
   --port PORT           Set the listen port. [env var: COMFYUI_PORT]
   --enable-cors-header [ORIGIN]
                         Enable CORS (Cross-Origin Resource Sharing) with optional origin or allow all with default '*'. [env var: COMFYUI_ENABLE_CORS_HEADER]
   --max-upload-size MAX_UPLOAD_SIZE
                         Set the maximum upload size in MB. [env var: COMFYUI_MAX_UPLOAD_SIZE]
+  --base-directory BASE_DIRECTORY
+                        Set the ComfyUI base directory for models, custom_nodes, input, output, temp, and user directories. [env var: COMFYUI_BASE_DIRECTORY]
   --extra-model-paths-config PATH [PATH ...]
                         Load one or more extra_model_paths.yaml files. [env var: COMFYUI_EXTRA_MODEL_PATHS_CONFIG]
   --output-directory OUTPUT_DIRECTORY
-                        Set the ComfyUI output directory. [env var: COMFYUI_OUTPUT_DIRECTORY]
+                        Set the ComfyUI output directory. Overrides --base-directory. [env var: COMFYUI_OUTPUT_DIRECTORY]
   --temp-directory TEMP_DIRECTORY
-                        Set the ComfyUI temp directory (default is in the ComfyUI directory). [env var: COMFYUI_TEMP_DIRECTORY]
+                        Set the ComfyUI temp directory (default is in the ComfyUI directory). Overrides --base-directory. [env var: COMFYUI_TEMP_DIRECTORY]
   --input-directory INPUT_DIRECTORY
-                        Set the ComfyUI input directory. [env var: COMFYUI_INPUT_DIRECTORY]
+                        Set the ComfyUI input directory. Overrides --base-directory. [env var: COMFYUI_INPUT_DIRECTORY]
   --auto-launch         Automatically launch ComfyUI in the default browser. [env var: COMFYUI_AUTO_LAUNCH]
   --disable-auto-launch
                         Disable auto launching the browser. [env var: COMFYUI_DISABLE_AUTO_LAUNCH]
@@ -951,8 +883,10 @@ options:
   --force-fp32          Force fp32 (If this makes your GPU work better please report it). [env var: COMFYUI_FORCE_FP32]
   --force-fp16          Force fp16. [env var: COMFYUI_FORCE_FP16]
   --force-bf16          Force bf16. [env var: COMFYUI_FORCE_BF16]
-  --bf16-unet           Run the UNET in bf16. This should only be used for testing stuff. [env var: COMFYUI_BF16_UNET]
-  --fp16-unet           Store unet weights in fp16. [env var: COMFYUI_FP16_UNET]
+  --fp32-unet           Run the diffusion model in fp32. [env var: COMFYUI_FP32_UNET]
+  --fp64-unet           Run the diffusion model in fp64. [env var: COMFYUI_FP64_UNET]
+  --bf16-unet           Run the diffusion model in bf16. [env var: COMFYUI_BF16_UNET]
+  --fp16-unet           Run the diffusion model in fp16 [env var: COMFYUI_FP16_UNET]
   --fp8_e4m3fn-unet     Store unet weights in fp8_e4m3fn. [env var: COMFYUI_FP8_E4M3FN_UNET]
   --fp8_e5m2-unet       Store unet weights in fp8_e5m2. [env var: COMFYUI_FP8_E5M2_UNET]
   --fp16-vae            Run the VAE in fp16, might cause black images. [env var: COMFYUI_FP16_VAE]
@@ -964,26 +898,31 @@ options:
   --fp8_e5m2-text-enc   Store text encoder weights in fp8 (e5m2 variant). [env var: COMFYUI_FP8_E5M2_TEXT_ENC]
   --fp16-text-enc       Store text encoder weights in fp16. [env var: COMFYUI_FP16_TEXT_ENC]
   --fp32-text-enc       Store text encoder weights in fp32. [env var: COMFYUI_FP32_TEXT_ENC]
+  --bf16-text-enc       Store text encoder weights in bf16. [env var: COMFYUI_BF16_TEXT_ENC]
   --directml [DIRECTML_DEVICE]
                         Use torch-directml. [env var: COMFYUI_DIRECTML]
+  --oneapi-device-selector SELECTOR_STRING
+                        Sets the oneAPI device(s) this instance will use. [env var: COMFYUI_ONEAPI_DEVICE_SELECTOR]
   --disable-ipex-optimize
-                        Disables ipex.optimize when loading models with Intel GPUs. [env var: COMFYUI_DISABLE_IPEX_OPTIMIZE]
+                        Disables ipex.optimize default when loading models with Intel's Extension for Pytorch. [env var: COMFYUI_DISABLE_IPEX_OPTIMIZE]
   --preview-method [none,auto,latent2rgb,taesd]
                         Default preview method for sampler nodes. [env var: COMFYUI_PREVIEW_METHOD]
   --preview-size PREVIEW_SIZE
                         Sets the maximum preview size for sampler nodes. [env var: COMFYUI_PREVIEW_SIZE]
+  --cache-classic       WARNING: Unused. Use the old style (aggressive) caching. [env var: COMFYUI_CACHE_CLASSIC]
   --cache-lru CACHE_LRU
                         Use LRU caching with a maximum of N node results cached. May use more RAM/VRAM. [env var: COMFYUI_CACHE_LRU]
+  --cache-none          Reduced RAM/VRAM usage at the expense of executing every node for each run. [env var: COMFYUI_CACHE_NONE]
   --use-split-cross-attention
                         Use the split cross attention optimization. Ignored when xformers is used. [env var: COMFYUI_USE_SPLIT_CROSS_ATTENTION]
   --use-quad-cross-attention
                         Use the sub-quadratic cross attention optimization . Ignored when xformers is used. [env var: COMFYUI_USE_QUAD_CROSS_ATTENTION]
   --use-pytorch-cross-attention
-                        Use the new pytorch 2.0 cross attention function. [env var: COMFYUI_USE_PYTORCH_CROSS_ATTENTION]
+                        Use the new pytorch 2.0 cross attention function (default). [env var: COMFYUI_USE_PYTORCH_CROSS_ATTENTION]
+  --use-sage-attention  Use sage attention. [env var: COMFYUI_USE_SAGE_ATTENTION]
+  --use-flash-attention
+                        Use FlashAttention. [env var: COMFYUI_USE_FLASH_ATTENTION]
   --disable-xformers    Disable xformers. [env var: COMFYUI_DISABLE_XFORMERS]
-  --disable-flash-attn  Disable Flash Attention [env var: COMFYUI_DISABLE_FLASH_ATTN]
-  --disable-sage-attention
-                        Disable Sage Attention [env var: COMFYUI_DISABLE_SAGE_ATTENTION]
   --force-upcast-attention
                         Force enable attention upcasting, please report if it fixes black images. [env var: COMFYUI_FORCE_UPCAST_ATTENTION]
   --dont-upcast-attention
@@ -995,8 +934,8 @@ options:
   --novram              When lowvram isn't enough. [env var: COMFYUI_NOVRAM]
   --cpu                 To use the CPU for everything (slow). [env var: COMFYUI_CPU]
   --reserve-vram RESERVE_VRAM
-                        Set the amount of vram in GB you want to reserve for use by your OS/other software. By default some amount is reserved depending on your OS.
-                        [env var: COMFYUI_RESERVE_VRAM]
+                        Set the amount of vram in GB you want to reserve for use by your OS/other software. By default some amount is reserved depending on your OS. [env var:
+                        COMFYUI_RESERVE_VRAM]
   --default-hashing-function {md5,sha1,sha256,sha512}
                         Allows you to choose the hash function to use for duplicate filename / contents comparison. Default is sha256. [env var:
                         COMFYUI_DEFAULT_HASHING_FUNCTION]
@@ -1004,17 +943,19 @@ options:
                         Force ComfyUI to agressively offload to regular ram instead of keeping models in vram when it can. [env var: COMFYUI_DISABLE_SMART_MEMORY]
   --deterministic       Make pytorch use slower deterministic algorithms when it can. Note that this might not make images deterministic in all cases. [env var:
                         COMFYUI_DETERMINISTIC]
-  --fast                Enable some untested and potentially quality deteriorating optimizations. [env var: COMFYUI_FAST]
+  --fast [FAST ...]     Enable some untested and potentially quality deteriorating optimizations. Pass a list specific optimizations if you only want to enable specific ones.
+                        Current valid optimizations: fp16_accumulation fp8_matrix_mult cublas_ops [env var: COMFYUI_FAST]
   --dont-print-server   Don't print server output. [env var: COMFYUI_DONT_PRINT_SERVER]
   --quick-test-for-ci   Quick test for CI. Raises an error if nodes cannot be imported, [env var: COMFYUI_QUICK_TEST_FOR_CI]
   --windows-standalone-build
-                        Windows standalone build: Enable convenient things that most people using the standalone windows build will probably enjoy (like auto opening
-                        the page on startup). [env var: COMFYUI_WINDOWS_STANDALONE_BUILD]
+                        Windows standalone build: Enable convenient things that most people using the standalone windows build will probably enjoy (like auto opening the page
+                        on startup). [env var: COMFYUI_WINDOWS_STANDALONE_BUILD]
   --disable-metadata    Disable saving prompt metadata in files. [env var: COMFYUI_DISABLE_METADATA]
   --disable-all-custom-nodes
                         Disable loading all custom nodes. [env var: COMFYUI_DISABLE_ALL_CUSTOM_NODES]
   --multi-user          Enables per-user storage. [env var: COMFYUI_MULTI_USER]
   --create-directories  Creates the default models/, input/, output/ and temp/ directories, then exits. [env var: COMFYUI_CREATE_DIRECTORIES]
+  --log-stdout          Send normal process output to stdout instead of stderr (default). [env var: COMFYUI_LOG_STDOUT]
   --plausible-analytics-base-url PLAUSIBLE_ANALYTICS_BASE_URL
                         Enables server-side analytics events sent to the provided URL. [env var: COMFYUI_PLAUSIBLE_ANALYTICS_BASE_URL]
   --plausible-analytics-domain PLAUSIBLE_ANALYTICS_DOMAIN
@@ -1022,15 +963,15 @@ options:
   --analytics-use-identity-provider
                         Uses platform identifiers for unique visitor analytics. [env var: COMFYUI_ANALYTICS_USE_IDENTITY_PROVIDER]
   --distributed-queue-connection-uri DISTRIBUTED_QUEUE_CONNECTION_URI
-                        EXAMPLE: "amqp://guest:guest@127.0.0.1" - Servers and clients will connect to this AMPQ URL to form a distributed queue and exchange prompt
-                        execution requests and progress updates. [env var: COMFYUI_DISTRIBUTED_QUEUE_CONNECTION_URI]
+                        EXAMPLE: "amqp://guest:guest@127.0.0.1" - Servers and clients will connect to this AMPQ URL to form a distributed queue and exchange prompt execution
+                        requests and progress updates. [env var: COMFYUI_DISTRIBUTED_QUEUE_CONNECTION_URI]
   --distributed-queue-worker
                         Workers will pull requests off the AMQP URL. [env var: COMFYUI_DISTRIBUTED_QUEUE_WORKER]
   --distributed-queue-frontend
                         Frontends will start the web UI and connect to the provided AMQP URL to submit prompts. [env var: COMFYUI_DISTRIBUTED_QUEUE_FRONTEND]
   --distributed-queue-name DISTRIBUTED_QUEUE_NAME
-                        This name will be used by the frontends and workers to exchange prompt requests and replies. Progress updates will be prefixed by the queue
-                        name, followed by a '.', then the user ID [env var: COMFYUI_DISTRIBUTED_QUEUE_NAME]
+                        This name will be used by the frontends and workers to exchange prompt requests and replies. Progress updates will be prefixed by the queue name,
+                        followed by a '.', then the user ID [env var: COMFYUI_DISTRIBUTED_QUEUE_NAME]
   --external-address EXTERNAL_ADDRESS
                         Specifies a base URL for external addresses reported by the API, such as for image paths. [env var: COMFYUI_EXTERNAL_ADDRESS]
   --logging-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}
@@ -1044,28 +985,41 @@ options:
   --otel-service-version OTEL_SERVICE_VERSION
                         The version of the service or application that is generating telemetry data. [env var: OTEL_SERVICE_VERSION]
   --otel-exporter-otlp-endpoint OTEL_EXPORTER_OTLP_ENDPOINT
-                        A base endpoint URL for any signal type, with an optionally-specified port number. Helpful for when you're sending more than one signal to the
-                        same endpoint and want one environment variable to control the endpoint. [env var: OTEL_EXPORTER_OTLP_ENDPOINT]
+                        A base endpoint URL for any signal type, with an optionally-specified port number. Helpful for when you're sending more than one signal to the same
+                        endpoint and want one environment variable to control the endpoint. [env var: OTEL_EXPORTER_OTLP_ENDPOINT]
   --force-channels-last
                         Force channels last format when inferencing the models. [env var: COMFYUI_FORCE_CHANNELS_LAST]
   --force-hf-local-dir-mode
-                        Download repos from huggingface.co to the models/huggingface directory with the "local_dir" argument instead of models/huggingface_cache with
-                        the "cache_dir" argument, recreating the traditional file structure. [env var: COMFYUI_FORCE_HF_LOCAL_DIR_MODE]
+                        Download repos from huggingface.co to the models/huggingface directory with the "local_dir" argument instead of models/huggingface_cache with the
+                        "cache_dir" argument, recreating the traditional file structure. [env var: COMFYUI_FORCE_HF_LOCAL_DIR_MODE]
   --front-end-version FRONT_END_VERSION
-                        Specifies the version of the frontend to be used. This command needs internet connectivity to query and download available frontend
-                        implementations from GitHub releases. The version string should be in the format of: [repoOwner]/[repoName]@[version] where version is one of:
-                        "latest" or a valid version number (e.g. "1.0.0") [env var: COMFYUI_FRONT_END_VERSION]
+                        Specifies the version of the frontend to be used. This command needs internet connectivity to query and download available frontend implementations from
+                        GitHub releases. The version string should be in the format of: [repoOwner]/[repoName]@[version] where version is one of: "latest" or a valid version
+                        number (e.g. "1.0.0") [env var: COMFYUI_FRONT_END_VERSION]
+  --panic-when PANIC_WHEN
+                        List of fully qualified exception class names to panic (sys.exit(1)) when a workflow raises it. Example: --panic-when=torch.cuda.OutOfMemoryError. Can
+                        be specified multiple times or as a comma-separated list. [env var: COMFYUI_PANIC_WHEN]
   --front-end-root FRONT_END_ROOT
                         The local filesystem path to the directory where the frontend is located. Overrides --front-end-version. [env var: COMFYUI_FRONT_END_ROOT]
   --executor-factory EXECUTOR_FACTORY
-                        When running ComfyUI as a distributed worker, this specifies the kind of executor that should be used to run the actual ComfyUI workflow
-                        worker. A ThreadPoolExecutor is the default. A ProcessPoolExecutor results in better memory management, since the process will be closed and
-                        large, contiguous blocks of CUDA memory can be freed. [env var: COMFYUI_EXECUTOR_FACTORY]
+                        When running ComfyUI as a distributed worker, this specifies the kind of executor that should be used to run the actual ComfyUI workflow worker. A
+                        ThreadPoolExecutor is the default. A ProcessPoolExecutor results in better memory management, since the process will be closed and large, contiguous
+                        blocks of CUDA memory can be freed. [env var: COMFYUI_EXECUTOR_FACTORY]
   --openai-api-key OPENAI_API_KEY
-                        Configures the OpenAI API Key for the OpenAI nodes [env var: OPENAI_API_KEY]
+                        Configures the OpenAI API Key for the OpenAI nodes. Visit https://platform.openai.com/api-keys to create this key. [env var: OPENAI_API_KEY]
+  --ideogram-api-key IDEOGRAM_API_KEY
+                        Configures the Ideogram API Key for the Ideogram nodes. Visit https://ideogram.ai/manage-api to create this key. [env var: IDEOGRAM_API_KEY]
+  --anthropic-api-key ANTHROPIC_API_KEY
+                        Configures the Anthropic API key for its nodes related to Claude functionality. Visit https://console.anthropic.com/settings/keys to create this key.
+                        [env var: ANTHROPIC_API_KEY]
   --user-directory USER_DIRECTORY
-                        Set the ComfyUI user directory with an absolute path. [env var: COMFYUI_USER_DIRECTORY]
-
+                        Set the ComfyUI user directory with an absolute path. Overrides --base-directory. [env var: COMFYUI_USER_DIRECTORY]
+  --enable-compress-response-body
+                        Enable compressing response body. [env var: COMFYUI_ENABLE_COMPRESS_RESPONSE_BODY]
+  --workflows WORKFLOWS [WORKFLOWS ...]
+                        Execute the API workflow(s) specified in the provided files. For each workflow, its outputs will be printed to a line to standard out. Application
+                        logging will be redirected to standard error. Use `-` to signify standard in. [env var: COMFYUI_WORKFLOWS]
+                        
 Args that start with '--' can also be set in a config file (config.yaml or config.json or specified via -c). Config file syntax allows: key=value, flag=true, stuff=[a,b,c] (for details, see syntax at
 https://goo.gl/R74nmi). In general, command-line values override environment variables which override config file values which override defaults.
 ```
@@ -1079,9 +1033,9 @@ There are multiple ways to use this ComfyUI package to run workflows programmati
 Start ComfyUI by creating an ordinary Python object. This does not create a web server. It runs ComfyUI as a library, like any other package you are familiar with:
 
 ```python
-from hiddenswitch_comfy.client.embedded_comfy_client import EmbeddedComfyClient
+from hiddenswitch_comfy.client.embedded_comfy_client import Comfy
 
-async with EmbeddedComfyClient() as client:
+async with Comfy() as client:
     # This will run your prompt
     # To get the prompt JSON, visit the ComfyUI interface, design your workflow and click **Save (API Format)**. This JSON is what you will use as your workflow.
     outputs = await client.queue_prompt(prompt)
