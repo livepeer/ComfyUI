@@ -246,4 +246,4 @@ exclude = ["*.ipynb"]
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["comfy/", "comfy_extras/"]
+packages = ["hiddenswitch_comfy/", "hiddenswitch_comfy_extras/"]
