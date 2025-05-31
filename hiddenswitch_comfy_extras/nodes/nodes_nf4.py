@@ -1,7 +1,7 @@
 import dataclasses
 from typing import Any
 
-from comfy.component_model.suppress_stdout import suppress_stdout_stderr
+from hiddenswitch_comfy.component_model.suppress_stdout import suppress_stdout_stderr
 
 try:
     with suppress_stdout_stderr():
