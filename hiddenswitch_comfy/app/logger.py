@@ -52,9 +52,18 @@ def on_flush(callback):
         stderr_interceptor.on_flush(callback)
 
 
-def setup_logger(log_level: str = 'INFO', capacity: int = 300, use_stdout: bool = False):
+def setup_logger(log_level: str = 'INFO', capacity: int = 300, use_stdout: bool = False, enable: bool = False):
+    """
+    Setup logger with configurable options
+    
+    Args:
+        log_level: Logging level (default: 'INFO')
+        capacity: Maximum number of log entries to keep (default: 300)
+        use_stdout: Whether to use stdout for non-error logs (default: False)
+        enable: Whether to enable the logger setup (default: True)
+    """
     global logs
-    if logs:
+    if logs or not enable:
         return
 
     # workaround for google collab
@@ -69,24 +78,28 @@ def setup_logger(log_level: str = 'INFO', capacity: int = 300, use_stdout: bool 
     stdout_interceptor = sys.stdout = LogInterceptor(sys.stdout)
     stderr_interceptor = sys.stderr = LogInterceptor(sys.stderr)
 
-    # Setup default global logger
-    logger = logging.getLogger()
-    logger.setLevel(log_level)
+    # Setup default global logger only if enabled
+    if enable:
+        logger = logging.getLogger()
+        logger.setLevel(log_level)
 
-    stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(logging.Formatter("%(message)s"))
+        stream_handler = logging.StreamHandler()
+        stream_handler.setFormatter(logging.Formatter(
+            "%(asctime)s [%(name)s] [%(levelname)s] [%(filename)s:%(lineno)d] %(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S"
+        ))
 
-    if use_stdout:
-        # Only errors and critical to stderr
-        stream_handler.addFilter(lambda record: not record.levelno < logging.ERROR)
+        if use_stdout:
+            # Only errors and critical to stderr
+            stream_handler.addFilter(lambda record: not record.levelno < logging.ERROR)
 
-        # Lesser to stdout
-        stdout_handler = logging.StreamHandler(sys.stdout)
-        stdout_handler.setFormatter(logging.Formatter("%(message)s"))
-        stdout_handler.addFilter(lambda record: record.levelno < logging.ERROR)
-        logger.addHandler(stdout_handler)
+            # Lesser to stdout
+            stdout_handler = logging.StreamHandler(sys.stdout)
+            stdout_handler.setFormatter(logging.Formatter("%(message)s"))
+            stdout_handler.addFilter(lambda record: record.levelno < logging.ERROR)
+            logger.addHandler(stdout_handler)
 
-    logger.addHandler(stream_handler)
+        logger.addHandler(stream_handler)
 
 
 STARTUP_WARNINGS = []
