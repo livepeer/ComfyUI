@@ -117,7 +117,7 @@ async def main():
     prompt_dict["3"]["inputs"]["seed"] = 5
 
     # Now we will validate the prompt. This Prompt class contains everything we need to validate the prompt.
-    from comfy.api.components.schema.prompt import Prompt
+    from hiddenswitch_comfy.api.components.schema.prompt import Prompt
     prompt = Prompt.validate(prompt_dict)
 
     # Your prompt is ready to be processed. You should start your ComfyUI server; or, specify a remote URL for it.
@@ -125,7 +125,7 @@ async def main():
     # Then, as the README specifies, `cd` into the directory that contains your `models/` folder and run:
     #   comfyui --listen
     # Let's create the client we will use to access it:
-    from comfy.client.aio_client import AsyncRemoteComfyClient
+    from hiddenswitch_comfy.client.aio_client import AsyncRemoteComfyClient
     client = AsyncRemoteComfyClient(server_address="http://localhost:8188")
 
     # Now let's get the bytes of the PNG image saved by the SaveImage node:

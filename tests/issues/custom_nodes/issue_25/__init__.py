@@ -1,7 +1,7 @@
 import os
 
-from comfy.cmd import folder_paths
-from comfy.nodes.package_typing import CustomNode, InputTypes, FunctionReturnsUIVariables
+from hiddenswitch_comfy.cmd import folder_paths
+from hiddenswitch_comfy.nodes.package_typing import CustomNode, InputTypes, FunctionReturnsUIVariables
 
 TEST_PATH = os.path.join(folder_paths.models_dir, "test", "path")
 

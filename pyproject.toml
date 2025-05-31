@@ -110,7 +110,7 @@ build-backend = "hatchling.build"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["comfy*"]
+include = ["hiddenswitch_comfy*"]
 namespaces = false
 
 [dependency-groups]
@@ -166,9 +166,9 @@ attention = [
 ]
 
 [project.scripts]
-comfyui = "comfy.cmd.main:entrypoint"
-comfyui-worker = "comfy.entrypoints.worker:entrypoint"
-comfyui-workflow = "comfy.entrypoints.workflow:entrypoint"
+comfyui = "hiddenswitch_comfy.cmd.main:entrypoint"
+comfyui-worker = "hiddenswitch_comfy.cmd.worker:entrypoint"
+comfyui-workflow = "hiddenswitch_comfy.entrypoints.workflow:entrypoint"
 
 [project.urls]
 Homepage = "https://github.com/comfyanonymous/ComfyUI"
@@ -246,4 +246,4 @@ exclude = ["*.ipynb"]
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["comfy/", "comfy_extras/"]
+packages = ["hiddenswitch_comfy/", "hiddenswitch_comfy_extras/"]

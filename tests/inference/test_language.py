@@ -1,6 +1,6 @@
 import torch
 
-from comfy_extras.nodes.nodes_language import TransformersLoader, OneShotInstructTokenize
+from hiddenswitch_comfy_extras.nodes.nodes_language import TransformersLoader, OneShotInstructTokenize
 
 
 def test_integration_transformers_loader_and_tokenize():

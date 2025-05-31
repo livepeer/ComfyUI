@@ -4,12 +4,12 @@ from importlib.abc import Traversable
 
 import pytest
 
-from comfy.api.components.schema.prompt import Prompt
-from comfy.client.embedded_comfy_client import Comfy
-from comfy.model_downloader import add_known_models, KNOWN_LORAS
-from comfy.model_downloader_types import CivitFile, HuggingFile
-from comfy_extras.nodes.nodes_audio import TorchAudioNotFoundError
-from comfy_extras.nodes.nodes_nf4 import BitsAndBytesNotFoundError
+from hiddenswitch_comfy.api.components.schema.prompt import Prompt
+from hiddenswitch_comfy.client.embedded_comfy_client import Comfy
+from hiddenswitch_comfy.model_downloader import add_known_models, KNOWN_LORAS
+from hiddenswitch_comfy.model_downloader_types import CivitFile, HuggingFile
+from hiddenswitch_comfy_extras.nodes.nodes_audio import TorchAudioNotFoundError
+from hiddenswitch_comfy_extras.nodes.nodes_nf4 import BitsAndBytesNotFoundError
 from . import workflows
 
 

@@ -47,5 +47,5 @@ jobs:
           uv run pytest -v tests/unit
       - name: Lint for errors
         run: |
-          uv run pylint --rcfile=.pylintrc comfy/
-          uv run pylint --rcfile=.pylintrc comfy_extras/
+          pylint --rcfile=.pylintrc hiddenswitch_comfy/
+          pylint --rcfile=.pylintrc hiddenswitch_comfy_extras/

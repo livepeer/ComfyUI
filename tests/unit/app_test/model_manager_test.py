@@ -7,7 +7,7 @@ from PIL import Image
 from aiohttp import web
 from unittest.mock import patch
 
-from comfy.app.model_manager import ModelFileManager
+from hiddenswitch_comfy.app.model_manager import ModelFileManager
 
 pytestmark = (
     pytest.mark.asyncio

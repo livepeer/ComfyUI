@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from comfy.cli_args_types import Configuration
-from comfy.cmd import folder_paths
-from comfy.cmd.folder_paths import init_default_paths
-from comfy.component_model.folder_path_types import FolderNames, ModelPaths
-from comfy.execution_context import context_folder_names_and_paths
+from hiddenswitch_comfy.cli_args_types import Configuration
+from hiddenswitch_comfy.cmd import folder_paths
+from hiddenswitch_comfy.cmd.folder_paths import init_default_paths
+from hiddenswitch_comfy.component_model.folder_path_types import FolderNames, ModelPaths
+from hiddenswitch_comfy.execution_context import context_folder_names_and_paths
 
 
 @pytest.fixture()

@@ -573,7 +573,7 @@ All `.py` files located in the package specified by the entrypoint with your pac
 **some_nodes.py**:
 
 ```py
-from comfy.nodes.package_typing import CustomNode
+from hiddenswitch_comfy.nodes.package_typing import CustomNode
 
 
 class Binary_Preprocessor(CustomNode):
@@ -590,7 +590,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
 
 These packages will be scanned recursively.
 
-Extending the `comfy.nodes.package_typing.CustomNode` provides type hints for authoring nodes.
+Extending the `hiddenswitch_comfy.nodes.package_typing.CustomNode` provides type hints for authoring nodes.
 
 ## Adding Custom Configuration
 
@@ -700,8 +700,8 @@ the nodes will potentially be initialized without any configuration.
 Access your configuration from `cli_args`:
 
 ```python
-from comfy.cli_args import args
-from comfy.cli_args_types import Configuration
+from hiddenswitch_comfy.cli_args import args
+from hiddenswitch_comfy.cli_args_types import Configuration
 from typing import Optional
 
 
@@ -1033,7 +1033,7 @@ There are multiple ways to use this ComfyUI package to run workflows programmati
 Start ComfyUI by creating an ordinary Python object. This does not create a web server. It runs ComfyUI as a library, like any other package you are familiar with:
 
 ```python
-from comfy.client.embedded_comfy_client import Comfy
+from hiddenswitch_comfy.client.embedded_comfy_client import Comfy
 
 async with Comfy() as client:
     # This will run your prompt
@@ -1065,7 +1065,7 @@ pip install --no-deps git+https://github.com/hiddenswitch/ComfyUI.git
 Then the following idiomatic pattern is available:
 
 ```python
-from comfy.client.aio_client import AsyncRemoteComfyClient
+from hiddenswitch_comfy.client.aio_client import AsyncRemoteComfyClient
 
 client = AsyncRemoteComfyClient(server_address="http://localhost:8188")
 # Now let's get the bytes of the PNG image saved by the SaveImage node:

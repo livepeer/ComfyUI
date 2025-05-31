@@ -31,7 +31,7 @@ class AbsoluteImportChecker(BaseChecker):
         package_path = os.path.dirname(current_file)
         package_name = os.path.basename(package_path)
 
-        if node.modname.startswith(package_name) and package_name in ['comfy', 'comfy_extras']:
+        if node.modname.startswith(package_name) and package_name in ['hiddenswitch_comfy', 'hiddenswitch_comfy_extras']:
             import_parts = node.modname.split('.')
 
             if import_parts[0] == package_name:

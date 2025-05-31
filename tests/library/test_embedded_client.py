@@ -3,9 +3,9 @@ import asyncio
 import pytest
 import torch
 
-from comfy.cli_args_types import Configuration
-from comfy.client.embedded_comfy_client import Comfy
-from comfy.client.sdxl_with_refiner_workflow import sdxl_workflow_with_refiner
+from hiddenswitch_comfy.cli_args_types import Configuration
+from hiddenswitch_comfy.client.embedded_comfy_client import Comfy
+from hiddenswitch_comfy.client.sdxl_with_refiner_workflow import sdxl_workflow_with_refiner
 
 
 @pytest.mark.asyncio

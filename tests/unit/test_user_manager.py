@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 from aiohttp import web
 
-from comfy.app.user_manager import UserManager
+from hiddenswitch_comfy.app.user_manager import UserManager
 
 pytestmark = (
     pytest.mark.asyncio

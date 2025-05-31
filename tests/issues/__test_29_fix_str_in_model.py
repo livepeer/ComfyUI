@@ -1,6 +1,6 @@
 import torch.nn
 
-from comfy.model_patcher import ModelPatcher
+from hiddenswitch_comfy.model_patcher import ModelPatcher
 
 
 class HasOperationsNoName(torch.nn.Module):

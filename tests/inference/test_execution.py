@@ -8,14 +8,14 @@ import pytest
 from PIL import Image
 from pytest import fixture
 
-from comfy.cli_args import default_configuration
-from comfy.client.embedded_comfy_client import Comfy
-from comfy.component_model.executor_types import SendSyncEvent, SendSyncData, ExecutingMessage, ExecutionErrorMessage, \
+from hiddenswitch_comfy.cli_args import default_configuration
+from hiddenswitch_comfy.client.embedded_comfy_client import Comfy
+from hiddenswitch_comfy.component_model.executor_types import SendSyncEvent, SendSyncData, ExecutingMessage, ExecutionErrorMessage, \
     DependencyCycleError
-from comfy.distributed.server_stub import ServerStub
-from comfy.execution_context import context_add_custom_nodes
-from comfy.graph_utils import GraphBuilder, Node
-from comfy.nodes.package_typing import ExportedNodes
+from hiddenswitch_comfy.distributed.server_stub import ServerStub
+from hiddenswitch_comfy.execution_context import context_add_custom_nodes
+from hiddenswitch_comfy.graph_utils import GraphBuilder, Node
+from hiddenswitch_comfy.nodes.package_typing import ExportedNodes
 
 current_test_name = ContextVar('current_test_name', default=None)
 

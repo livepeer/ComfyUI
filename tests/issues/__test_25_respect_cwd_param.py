@@ -4,9 +4,9 @@ from importlib.resources import files
 
 import pytest
 
-from comfy.api.components.schema.prompt import Prompt
-from comfy.cli_args_types import Configuration
-from comfy.client.embedded_comfy_client import Comfy
+from hiddenswitch_comfy.api.components.schema.prompt import Prompt
+from hiddenswitch_comfy.cli_args_types import Configuration
+from hiddenswitch_comfy.client.embedded_comfy_client import Comfy
 
 _TEST_WORKFLOW = {
     "0": {
@@ -26,7 +26,7 @@ async def test_respect_cwd_param():
         config = Configuration(cwd=cwd)
         # for finding the custom nodes
         config.base_paths = [files(__package__)]
-        from comfy.cmd.folder_paths import models_dir
+        from hiddenswitch_comfy.cmd.folder_paths import models_dir
         assert os.path.commonpath([os.getcwd(), models_dir]) == os.getcwd(), "at the time models_dir is accessed, the cwd should be the actual cwd, since there is no other configuration"
 
         client = Comfy(config)

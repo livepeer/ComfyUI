@@ -2,9 +2,9 @@ import json
 import pytest
 from aiohttp import web
 
-from comfy.app.custom_node_manager import CustomNodeManager
-from comfy.component_model.folder_path_types import FolderNames, ModelPaths
-from comfy.execution_context import context_folder_names_and_paths
+from hiddenswitch_comfy.app.custom_node_manager import CustomNodeManager
+from hiddenswitch_comfy.component_model.folder_path_types import FolderNames, ModelPaths
+from hiddenswitch_comfy.execution_context import context_folder_names_and_paths
 
 pytestmark = (
     pytest.mark.asyncio

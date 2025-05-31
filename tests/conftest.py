@@ -11,7 +11,7 @@ from typing import Tuple, List
 import pytest
 import requests
 
-from comfy.cli_args_types import Configuration
+from hiddenswitch_comfy.cli_args_types import Configuration
 
 # fixes issues with running the testcontainers rabbitmqcontainer on Windows
 os.environ["TC_HOST"] = "localhost"
@@ -39,8 +39,8 @@ def get_lan_ip():
 
 
 def run_server(server_arguments: Configuration):
-    from comfy.cmd.main import main
-    from comfy.cli_args import args
+    from hiddenswitch_comfy.cmd.main import main
+    from hiddenswitch_comfy.cli_args import args
     import asyncio
     for arg, value in server_arguments.items():
         args[arg] = value
@@ -55,8 +55,8 @@ def has_gpu() -> bool:
         import torch
         has_gpu = torch.backends.mps.is_available() and torch.device("mps") is not None
         if has_gpu:
-            from comfy import model_management
-            from comfy.model_management import CPUState
+            from hiddenswitch_comfy import model_management
+            from hiddenswitch_comfy.model_management import CPUState
             model_management.cpu_state = CPUState.MPS
     except ImportError:
         pass
@@ -78,8 +78,8 @@ def has_gpu() -> bool:
                 has_gpu = False
 
     if has_gpu:
-        from comfy import model_management
-        from comfy.model_management import CPUState
+        from hiddenswitch_comfy import model_management
+        from hiddenswitch_comfy.model_management import CPUState
         if model_management.cpu_state != CPUState.MPS:
             model_management.cpu_state = CPUState.GPU if has_gpu else CPUState.CPU
     yield has_gpu
@@ -194,7 +194,7 @@ def pytest_collection_modifyitems(items):
 
 @pytest.fixture(scope="module")
 def vae():
-    from comfy.nodes.base_nodes import VAELoader
+    from hiddenswitch_comfy.nodes.base_nodes import VAELoader
 
     vae_file = "vae-ft-mse-840000-ema-pruned.safetensors"
     try:
@@ -206,7 +206,7 @@ def vae():
 
 @pytest.fixture(scope="module")
 def clip():
-    from comfy.nodes.base_nodes import CheckpointLoaderSimple
+    from hiddenswitch_comfy.nodes.base_nodes import CheckpointLoaderSimple
 
     checkpoint = "v1-5-pruned-emaonly.safetensors"
     try:
@@ -217,7 +217,7 @@ def clip():
 
 @pytest.fixture(scope="module")
 def model(clip):
-    from comfy.nodes.base_nodes import CheckpointLoaderSimple
+    from hiddenswitch_comfy.nodes.base_nodes import CheckpointLoaderSimple
     checkpoint = "v1-5-pruned-emaonly.safetensors"
     try:
         return CheckpointLoaderSimple().load_checkpoint(checkpoint)[0]
@@ -227,7 +227,7 @@ def model(clip):
 
 @pytest.fixture(scope="function", autouse=False)
 def use_temporary_output_directory(tmp_path: pathlib.Path):
-    from comfy.cmd import folder_paths
+    from hiddenswitch_comfy.cmd import folder_paths
 
     orig_dir = folder_paths.get_output_directory()
     folder_paths.set_output_directory(tmp_path)
@@ -237,7 +237,7 @@ def use_temporary_output_directory(tmp_path: pathlib.Path):
 
 @pytest.fixture(scope="function", autouse=False)
 def use_temporary_input_directory(tmp_path: pathlib.Path):
-    from comfy.cmd import folder_paths
+    from hiddenswitch_comfy.cmd import folder_paths
 
     orig_dir = folder_paths.get_input_directory()
     folder_paths.set_input_directory(tmp_path)

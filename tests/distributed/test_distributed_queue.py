@@ -11,20 +11,20 @@ import pytest
 from aiohttp import ClientSession
 from testcontainers.rabbitmq import RabbitMqContainer
 
-from comfy.client.aio_client import AsyncRemoteComfyClient
-from comfy.client.embedded_comfy_client import Comfy
-from comfy.client.sdxl_with_refiner_workflow import sdxl_workflow_with_refiner
-from comfy.component_model.executor_types import Executor
-from comfy.component_model.make_mutable import make_mutable
-from comfy.component_model.queue_types import QueueItem, QueueTuple, TaskInvocation, NamedQueueTuple, ExecutionStatus
-from comfy.distributed.distributed_prompt_worker import DistributedPromptWorker
-from comfy.distributed.executors import ContextVarExecutor
-from comfy.distributed.process_pool_executor import ProcessPoolExecutor
-from comfy.distributed.server_stub import ServerStub
+from hiddenswitch_comfy.client.aio_client import AsyncRemoteComfyClient
+from hiddenswitch_comfy.client.embedded_comfy_client import Comfy
+from hiddenswitch_comfy.client.sdxl_with_refiner_workflow import sdxl_workflow_with_refiner
+from hiddenswitch_comfy.component_model.executor_types import Executor
+from hiddenswitch_comfy.component_model.make_mutable import make_mutable
+from hiddenswitch_comfy.component_model.queue_types import QueueItem, QueueTuple, TaskInvocation, NamedQueueTuple, ExecutionStatus
+from hiddenswitch_comfy.distributed.distributed_prompt_worker import DistributedPromptWorker
+from hiddenswitch_comfy.distributed.executors import ContextVarExecutor
+from hiddenswitch_comfy.distributed.process_pool_executor import ProcessPoolExecutor
+from hiddenswitch_comfy.distributed.server_stub import ServerStub
 
 
 def create_test_prompt() -> QueueItem:
-    from comfy.cmd.execution import validate_prompt
+    from hiddenswitch_comfy.cmd.execution import validate_prompt
 
     prompt = make_mutable(sdxl_workflow_with_refiner("test", inference_steps=1, refiner_steps=1))
     validation_tuple = validate_prompt(prompt)
@@ -51,7 +51,7 @@ async def test_basic_queue_worker(executor_factory: Callable[..., Executor]) -> 
         params = rabbitmq.get_connection_params()
         async with DistributedPromptWorker(connection_uri=f"amqp://guest:guest@127.0.0.1:{params.port}", executor=executor_factory(max_workers=1)):
             # this unfortunately does a bunch of initialization on the test thread
-            from comfy.distributed.distributed_prompt_queue import DistributedPromptQueue
+            from hiddenswitch_comfy.distributed.distributed_prompt_queue import DistributedPromptQueue
             # now submit some jobs
             distributed_queue = DistributedPromptQueue(ServerStub(), is_callee=False, is_caller=True, connection_uri=f"amqp://guest:guest@127.0.0.1:{params.port}")
             await distributed_queue.init()
@@ -70,7 +70,7 @@ async def test_distributed_prompt_queues_same_process():
         params = rabbitmq.get_connection_params()
         connection_uri = f"amqp://guest:guest@127.0.0.1:{params.port}"
 
-        from comfy.distributed.distributed_prompt_queue import DistributedPromptQueue
+        from hiddenswitch_comfy.distributed.distributed_prompt_queue import DistributedPromptQueue
         async with DistributedPromptQueue(ServerStub(), is_callee=False, is_caller=True, connection_uri=connection_uri) as frontend:
             async with DistributedPromptQueue(ServerStub(), is_callee=True, is_caller=False, connection_uri=connection_uri) as worker:
                 test_prompt = create_test_prompt()
@@ -221,7 +221,7 @@ async def test_two_workers_distinct_requests():
             await worker.init()
             workers.append(worker)
 
-        from comfy.distributed.distributed_prompt_queue import DistributedPromptQueue
+        from hiddenswitch_comfy.distributed.distributed_prompt_queue import DistributedPromptQueue
         queue = DistributedPromptQueue(is_callee=False, is_caller=True, connection_uri=connection_uri)
         await queue.init()
 

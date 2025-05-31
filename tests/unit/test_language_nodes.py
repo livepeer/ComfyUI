@@ -7,11 +7,11 @@ import pytest
 import torch
 from PIL import Image
 
-from comfy.language.language_types import LanguageModel, ProcessorResult
-from comfy_extras.nodes.nodes_language import SaveString
-from comfy_extras.nodes.nodes_language import TransformersLoader, OneShotInstructTokenize, TransformersGenerate, \
+from hiddenswitch_comfy.language.language_types import LanguageModel, ProcessorResult
+from hiddenswitch_comfy_extras.nodes.nodes_language import SaveString
+from hiddenswitch_comfy_extras.nodes.nodes_language import TransformersLoader, OneShotInstructTokenize, TransformersGenerate, \
     PreviewString
-from comfy_extras.nodes.nodes_openai import OpenAILanguageModelLoader, OpenAILanguageModelWrapper, DallEGenerate
+from hiddenswitch_comfy_extras.nodes.nodes_openai import OpenAILanguageModelLoader, OpenAILanguageModelWrapper, DallEGenerate
 
 
 @pytest.fixture
@@ -68,7 +68,7 @@ def test_save_string_default_extension(save_string_node, mock_get_save_path):
 
 @pytest.fixture
 def mock_openai_client():
-    with patch('comfy_extras.nodes.nodes_openai._Client') as mock_client:
+    with patch('hiddenswitch_comfy_extras.nodes.nodes_openai._Client') as mock_client:
         instance = mock_client.instance.return_value
         instance.chat.completions.create = Mock()
         instance.images.generate = Mock()
